@@ -1,0 +1,232 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="A tool to practice language comprehension" />
+        <meta name="keywords" content="HTML,CSS,JavaScript, video, audio, subtitle" />
+        <meta name="author" content="Antonio Cigna" />
+        <meta name="date" content="May 2021" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PROVA  Crea  srt da testo e file Video/Audio</title>
+        <script src="SRT_from_TEXT_messages.jstxt"  defer  ></script>		
+        <script src="SRT_from_TEXT_script.jstxt"    defer  ></script>
+        <style>
+			:root {
+				--main-bg-color: #fefbd8;
+			}
+
+			.but_word {
+				display: inline-block;
+				font-size: 1.4rem;
+				margin: auto;
+				cursor: pointer;
+				text-decoration: none;
+				border: 0;
+				background-color: var(--main-bg-color);
+			}
+
+			.but_word:hover {
+				background-color: lightGrey;
+				box-shadow: 0.3rem 0.3rem #999;
+			}
+
+			video {
+				width: 100%;
+				height: 100%;
+				display: flex;
+			}
+
+			p#id_p_text {
+				background-color: var(--main-bg-color);
+			}
+
+			html,
+			body {
+				background-color: var(--main-bg-color);
+				margin: auto;
+				height: 98%;
+				width: 98%;
+				margin: auto;
+				vertical-align: middle;
+				padding: 0;
+				text-align: center;
+			}
+
+			textarea,
+			input {
+				background-color: #d5f4e6;
+			}
+
+			html {
+				font-size: 1.5rem;
+			}
+
+			#id_h11 {
+				font-size: 0.8rem;
+				line-height: 80%;
+			}
+
+			h1 {
+				text-align: center;
+			}
+
+			table,
+			td,
+			th {
+				vertical-align: top;
+				text-align: left;
+				/*border: 1px solid black;*/
+				border-collapse: collapse;
+			}
+
+			.button {
+				/*background-color: #4CAF50; 	border: 1px solid black; */
+				background-color: #fefbd8;
+				color: black;
+				text-align: center;
+				vertical-align: middle;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 1.2rem;
+				margin: auto;
+				cursor: pointer;
+				border: 1px solid black;
+				border-radius: 15px;
+				box-shadow: 5px 5px #999;
+			}
+
+			.button:hover {
+				background-color: coral;
+			}
+
+			td,
+			th {
+				text-align: right;
+				padding: 0.2rem 1rem 0.2rem 1rem;
+			}
+
+			.td1 {
+				vertical-align: top;
+				border: 0px solid red;
+				border-collapse: collapse;
+				margin: auto;
+				text-align: center;
+				width: 45%;
+				height: 10%;
+			}		
+        </style>
+    </head>
+    <body>
+        <div id="id_div10"  style="width:100%; height:98%;margin:auto; display:block; text-align:center; border: 0px solid black;">
+            <div id="id_part1"  style="border: 0px solid green;width:100%; ">
+                <div id="id_ch_lang" style="margin:auto; text-align:center;fontSize:2em;" >
+                    <input type="radio"  id="r_lingua_it" name="radio_lingua"   onclick='getAllMsgInLang_xx("it")'    >Italiano						
+                    <input type="radio"  id="r_lingua_en" name="radio_lingua"   onclick='getAllMsgInLang_xx("en")'>English	
+                    <!-- to add o replace a language update the 'SRT_from_TEXT_messages.js'  file                --> 
+                </div>
+                <h1 id="id_h1"><span id="x001">?001Build an srt file from a text and a video or audio file</span><br><span id="id_h11">Antonio Cigna 2021</span></h1>
+                <br>
+                <div  id="id_td_txt3"  style="margin: auto;text-align: center; width:50%; " >
+                    <div style="text-align:center;">
+                        <div id="id_td_txt0" style="margin:auto;text-align:center;width:50%; border: 1px solid black;"  >?id_td_txt0 Trascrizione</div>
+                        <input id="id_file2text" type="file"  style="width:50%;margin: auto;text-align: center; border: 0px solid blue;" 
+                            onchange='handleFiles(this, "id_text1", "value",  fun_after_drop_due, "id_msg2"  )' > 
+                        <!-- <span   id="id_error2"   style="display:block; text-align:center;font-size:1.2rem; color:red;" ></span>  --> 	   
+                    </div>
+					
+                </div>
+                <div  id="id_td_txt1"  style="margin:auto; text-align:center; width:50%;  border: 0px solid blue;" >
+                    <textarea id="id_text1" style="height:2rem; width:98%;  border: 1px solid black; text-align:top;" 
+                        placeholder='paste the text here'></textarea>		
+					<span id="id_msg2"  style="color: red;font-size:1.3rem;text-align:center;"></span>	
+                </div>				
+         
+                <br><br>
+                <div id="id_td_vid3" style="margin: auto;text-align: center; width:50%; " >
+                        <div id="id_td_vid0" style="margin:auto;text-align:center;width:50%; border: 1px solid black; "  >?id_td_vid0 Video o Audio</div>						
+                        <input id="id_file1video" type='file'  style="width:50%;margin: auto;text-align: center; border: 0px solid blue;" 
+                            onchange='handleFiles(this, "id_div_video_audio" , "src"   , fun_after_drop_uno, "id_msg1"  )' > 
+                   
+                </div>
+				<p id="id_msg1"  style="font-size:1.3rem;  padding: 0;"></p>
+			   <button id="id_split" class="button" style="display:block;" onclick="split_into_rows()">?062Continue</button>
+            </div>
+			<br>
+            <!--  end of part1 -->
+            <div id="id_td_vid1" class="td1"  style="display:none; border: 2px solid red;width:100%;height:40%;text-align:center; vertical-align:middle; margin:auto;border: 0px solid violet; ">
+					
+                    <!-- span   id="id_error1"   style="display:block; text-align:center;font-size:1.2rem; color:red;" ></span>  	-->
+             
+					<video  id="id_div_video_audio"  controls="controls" style="margin:auto;border: 2px solid green;" >  </video>
+			 	
+                   
+            </div>
+			  <div id="id_div20" style="width:100%;height:60%; display:none; " >
+					<div id="id_video_time" style="text-align:center;width:98%;height:auto"></div>
+                    <div id="id_video_sub"  style="color:blue;font-size:1.4rem;text-align:center;background-color:yellow;"></div>
+                    <div id="id_dummy_sub"><br>&nbsp;</div>
+            
+                <!-- <br><b><span id="id_hb1" style="font-size:1.2rem;">?001Build an srt file from a text and a video or audio file</span></b> -->
+               
+				 <button id="x304" style="margin:auto; text-align:center;" class="button" onclick="show_what()">What to do</button>
+				 <!-- here below the content is replaced by message 306 -->
+				 <div id="id_info" style="display:none; width:60%;margin:auto; text-align:left;">
+					<ul>
+                    <li>Play the file and as you listen follow the words in the transcription text below. </li>
+                    <li>At the end of a sentence click on the last word, this will break the line and insert the current time of the video. </li>
+                    <li>If a sentence is too long, click on the word you want to end a piece with. </li>
+                    <li>If you want to correct the end time of a word, 
+						<br>&nbsp;&nbsp;&nbsp;&nbsp; go back a few seconds sliding the cursor of the control line, 
+						<br>&nbsp;&nbsp;&nbsp;&nbsp; replay from this point, 
+						<br>&nbsp;&nbsp;&nbsp;&nbsp; at the right moment, click on the same word again.
+						</li>
+                    <li>If a line has been broken at a wrong point, you can join again the two pieces of this line by double clicking on the last word of the first one. </li>
+                                        <li>At the end, if you want  you can check your work by clicking on the "play the new subtitles" button, 
+							<br><small>(this will play the file from the beginning showing the just made subtitiles)</small>.  </li>  
+					</ul>	
+                </div>
+				 <div  style="width:98%;text-align:center;margin: auto;padding:0.2rem 0 0 0;"> 			
+                    <button id="x305" style="margin:auto; text-align:center;" class="button" onclick="play_and_show_srt()">x305 Play New Subtitles</button>
+                    <button id="x300" style="margin:auto; text-align:center;" class="button" onclick="write_srt()">?300Download the srt file</button>
+                </div>
+                <div style="width:100%; height:80%;   overflow-y: auto; margin:auto; border: 2px solid black;padding:0.4rem 0 1rem 0;">
+					<br>
+                    <p id="id_p_text"   style="line-height:1.6; font-size:16px;text-align: left; ">
+                    <p id="out_txt"></p>
+                </div>
+            </div>
+            <!-- end of div20 -->
+        </div>
+        <!-- end of div 10 -->	
+        <!--  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+        <div id="msgOther"  style="display:none;">
+            <span id="x302">incompatible</span>
+            <span id="x303">the transcription of the video or audio file is missing (no file read,  nothing pasted or written)</span>
+          
+            <span id="xxid_td_txt0"></span>
+            <span id="?id_txt_urlVideo"></span>
+            <textarea id="id_txt_urlVideo"></textarea>
+            <span id="id_vid1inner"></span>
+            <span id="id_msgdrp1"></span>
+            <span id="id_msgdrp2"></span>
+            <div id="id_sott1" style="margin:auto; text-align:center;width:100%;">
+                ?id_sott1 I sottotitoli sono di tipo <b>srt</b>. <br><br>
+            </div>
+            <span id="x101">?101A speech in a row can be split:</span>
+            <span id="x121">?121Insert the character </span>
+            <span id="id_separe1">|</span>		  
+            <span id="x122">?122to interrupt a line and put the remaining text in a new line</span>
+            <span id="x131">?131The speech in two adjacent rows can be joined:</span>
+            <span id="x132">?132Append the character</span>
+            <span id="id_separe2">|</span>						  
+            <span id="x133">?133to the end of the first line, the second row will be removed and its speech text appended to the first</span>
+            <span id="x141">?141For each row of the table below:</span>
+            <span id="x142">?142Press the <b>Play</b> button and listen carefully</span>
+            <span id="x143">?143Press the same button again immediately after the last word of the text has been said</span>
+            <br><span id="x144">?144(the stop time will be put into the <b>to</b> column of the current row and into the <b>from</b> column of the next one)</span>
+            <span id="x151">?151 You can listen to a line with Start and Stop time already set, just moving the mouse over the <b>from</b> or <b>to</b> columns</span>
+            <span id="x152">?152When all rows have been played press the <b>download</b> button </span>
+
+			</div>
+    </body>
+</html>

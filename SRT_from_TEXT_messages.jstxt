@@ -1,0 +1,360 @@
+
+
+var myLang_default = "EN" ;  // default = inglese 		
+
+var myLang = navigator.language.substring(0,2).toLowerCase();
+	
+if (myLang == undefined)   myLang = myLang_default;
+if (myLang == "undefined") myLang = myLang_default;
+
+
+//-------------------------------------------------------------
+// Italiano
+var msg_it = "(.000)) " + 
+   "(.001)) Crea i sottotitoli di un video o di un audio usando la trascrizione del testo" +
+   "(.003)) I sottotitoli sono di tipo <b>srt</b>. <br><br>" +
+   "(.011)) Opzione 3: carica il file video o audio" +
+   "(.012)) e copia il percorso della cartella (se necessario)" +
+   "(.013)) Video o Audio" +
+   "(.014)) Opzione 1: copia e incolla l'indirizzo web del file video o audio<br> " +
+   "(.016)) incolla l'URL qui" +
+   "(.021)) Scegli un file audio" +
+   "(.022)) e copia il percorso della cartella (se necessario)" +
+   "(.023)) Trascrizione del testo" +
+   "(.024)) Opzione 1: copia-incolla il testo della trascrizione " +
+   "(.025)) conferma il testo" +
+   "(.026)) Incolla il testo della trascrizione" +
+   "(.031)) Incolla qui sotto il percorso della cartella che contiene il file video/audio (se necessario)" +
+   "(.041)) Verifica" +
+   "(.043)) Opzione 2: trascina e rilascia il file video o audio" +
+   "(.044)) Opzione 2: trascina e rilascia il file di testo" +
+   "(.050)) File di testo" +
+   "(.051)) Premi per selezionare il file della trascrizione" +
+   "(.052)) Opzione 3: carica il file di testo" +
+   "(.053)) Incolla il testo della trascrizione" +
+   "(.062)) Conferma" +
+   "(.101)) Una riga di testo può essere spezzata" +
+   "(.121)) Inserisci il carattere" +
+   "(.122)) per interrompere una riga e inserire il testo rimanente in una nuova riga"  +
+   "(.131)) I testi di due righe adiacenti possono essere uniti:" +
+   "(.132)) Aggiungi il carattere" +
+   "(.133)) alla fine della prima riga, la seconda riga verrà rimossa e il suo testo aggiunto alla prima" +
+   "(.141)) Per ogni riga della tabella sottostante:" +
+   "(.142)) Premi il pulsante <b>Play</b> e ascolta attentamente" +
+   "(.143)) Premere di nuovo lo stesso pulsante subito dopo che è stata pronunciata l'ultima parola del testo" +
+   "(.144)) (l'ora di fine verrà inserita nella colonna <b>a</b> della riga corrente e nella colonna <b>da</b> di quella successiva" +
+   "(.151)) Puoi ascoltare il testo di una riga se il tempo di inizio e di fine sono già state impostata, semplicemente spostando il mouse sulle colonne <b>da</b> o <b>a</b>" +
+   "(.152)) Quando tutte le righe sono state esaminate premi il pulsante " + "<b>scarica il file srt</b>" + 
+   "(.201)) non sono stati scelti né file video né file audio" +
+   "(.202)) non è stato scelto nessun file video/audio" +
+   "(.221)) " +
+   "(.222)) in " +
+   "(.231)) Errore trovato nel file " +
+   "(.232)) se il nome del file è corretto, forse il file si trova in un'altra cartella" +
+   "(.233)) il percorso della cartella non è stato specificato" +
+   "(.234)) (scegli di nuovo il file e copia/incolla nella riga di sopra il percorso completo della cartella" +
+   "(.241)) non è un file <b>txt</b> " +
+   "(.251)) Per ogni riga premi il tasto <b>Play</b>, mentre ascolti segui la trascrizione e alla fine  dell'ultima parola, premi il tasto <b>Stop</b>" +
+   "(.252)) Il tempo al momento dello stop verrà scritto nella colonna 'a' della riga corrente" +
+   "(.253)) e nella colonna 'da' della riga successiva" +
+   "(.261)) il nome file termina con " +
+   "(.262)) non può essere né un file video, nè un file audio" +
+   "(.263)) il nome file termina con " +
+   "(.264)) non può essere un file " +
+   "(.267)) " +
+   "(.280)) identificativo " +
+   "(.281)) dal<br>secondo" +
+   "(.282)) al<br>secondo" +
+   "(.283)) frammento di testo" +
+   "(.284)) Play/Stop" +
+   "(.290)) Play" +
+   "(.291)) Stop" +   
+   "(.300)) Scarica il file srt" +
+   "(.301)) Play" +
+   "(.302)) il tipo file è incompatibile" + 
+   "(.303)) manca la trascrizione del file video o audio<br><small> (nessun file di testo è stato letto e niente è stato incollato o scritto)</small>" +
+   "(.304)) Cosa fare" + 
+   "(.305)) Controlla i sottotitoli" + 
+   "(.306)) <ul>" +
+            "<li>Alla fine di una frase clicca sull\'ultima parola, questo interromperà la riga inserendo l\'ora corrente del video o audio in riproduzione. </li>" +
+            "<li>Se una frase è troppo lunga, clicca sulla parola con cui vuoi terminare un pezzo. </li>" +
+            "<li>Se vuoi correggere l\'ora di fine di una parola," +
+			"<br>&nbsp;&nbsp;&nbsp;&nbsp; torna indietro di alcuni secondi facendo scorrere il cursore della riga di controllo," +
+			"<br>&nbsp;&nbsp;&nbsp;&nbsp; riproduci il file da questo punto," +
+			"<br>&nbsp;&nbsp;&nbsp;&nbsp; al momento giusto, clicca  di sulla stessa parola." +
+			"</li>" +
+            "<li>Se una riga è stata interrotta in un punto sbagliato, puoi unire nuovamente i due pezzi che la componevano " +
+			"facendo doppio click sull\'ultima parola del primo pezzo dli linea.</li>" +
+            "<li>Alla fine, se vuoi puoi controllare il tuo lavoro cliccando sul pulsante <b>Controlla i sottotitoli</b>, " +
+			"<br><small>(questo riprodurrà il file dall\'inizio mostrando i sottotitoli appena creati)</small>. </li> " +
+			"</ul>" +
+			"" +
+   "(.307)) " + 
+ ""; 
+
+//-------------------------------------------------------------
+
+// English
+var msg_en = "(.000)) " + 
+   "(.001)) Creates subtitles of a video or audio using the text transcription" +
+   "(.003)) Subtitles are of type <b> srt </b>. <br> <br>" +
+   "(.011)) Option 3: upload the Video or Audio file" +
+   "(.012)) and copy the folder path (if necessary)" +
+   "(.013)) Video or Audio" +
+   "(.014)) Option 1: copy-paste the web address of the video or audio file <br>" +
+   "(.016)) paste the URL here" +
+   "(.021)) Choose an audio file" +
+   "(.022)) and copy the folder path (if necessary)" +
+   "(.023)) Text Transcription" +
+   "(.024)) Option 1: copy-paste the text of the transcription" +
+   "(.025)) confirm text" +
+   "(.026)) paste the text here" +
+   "(.031)) Paste below the path of the folder containing the video / audio file (if necessary)" +
+   "(.041)) Check" +
+   "(.043)) Option 2: drag and drop the Video or Audio file" +
+   "(.044)) Option 2: drag and drop the text file" +
+   "(.050)) Text file" +
+   "(.051)) Press to select the transcription file" +
+   "(.052)) Option 3: upload the text file" +
+   "(.053)) Paste the text of the transcript" +
+   "(.062)) Confirm" +
+   "(.101)) A speech in a row can be split" +
+   "(.121)) Insert the character " +
+   "(.122)) to interrupt a line and put the remaining text in a new line   " +
+   "(.131)) The speech in two adjacent rows can be joined:" +
+   "(.132)) Append the character" +
+   "(.133)) to the end of the first line, the second row will be removed and its speech text appended to the first" +
+   "(.141)) For each row of the table below:" +
+   "(.142)) Press the <b>Play</b> button and listen carefully" +
+   "(.143)) Press the same button again immediately after the last word of the text has been said" +
+   "(.144)) (the stop time will be put into the <b>to</b> column of the current row and into the <b>from</b> column of the next one)" +
+   "(.151))  You can listen to a line with Start and Stop time already set, just moving the mouse over the <b>from</b> or <b>to</b> columns" +
+   "(.152)) When all rows have been played press the <b>download the srt file</b> button" +
+   "(.201)) neither video nor audio files have been chosen" +
+   "(.202)) no video/audio file has been chosen" +
+   "(.221)) " +
+   "(.222)) in " +
+   "(.231)) Error found in file " +
+   "(.232)) if the file name is correct then maybe the file is in another folder" +
+   "(.233)) the folder path has not been filled" +
+   "(.234)) (choose the file again and copy/past the complete path of the folder" +
+   "(.241))  is not a <b>txt</b> file  " +
+   "(.251)) Play the text in each row and stop at the exact end of the speech" +
+   "(.252)) The current time will be written on the 'to' column of the current row" +
+   "(.253)) and on the 'from' colomn of the next row" +
+   "(.261)) file name ends in " +
+   "(.262))  cannot be a file to play" +
+   "(.263)) file name ends in " +
+   "(.264))  cannot be " +
+   "(.267))  file" +
+   "(.280)) number" +
+   "(.281)) from" +
+   "(.282)) to" +
+   "(.283)) speech" +
+   "(.284)) Play/Stop" +
+   "(.290)) Play" +
+   "(.291)) Stop" +   
+   "(.300)) Download the srt file" +
+   "(.301)) Play" +
+   "(.302)) the file type is incompatible" +  
+   "(.303)) the transcription of the video or audio file is missing <br><small>(no file read,  nothing pasted or written)</small>" + 
+   "(.304)) What to do" + 
+   "(.305)) Check Subtitles" +    
+   "(.306)) <ul>" +
+            "<li>At the end of a sentence click on the last word, this will break the line by inserting the current time of the video or audio. </li>" +
+            "<li>If a sentence is too long, click on the word you want to end a piece with. </li>" +
+            "<li>If you want to correct the end time of a word,"  +
+			"<br>&nbsp;&nbsp;&nbsp;&nbsp; go back a few seconds sliding the cursor of the control line,"  +
+			"<br>&nbsp;&nbsp;&nbsp;&nbsp; replay from this point,"  +
+			"<br>&nbsp;&nbsp;&nbsp;&nbsp; at the right moment, click on the same word again." +
+			"</li>" +
+            "<li>If a line has been broken at a wrong point, you can join again the two pieces of it " +
+			"by double clicking on the last word of the first one. </li>" +
+            "<li>At the end, if you want  you can check your work by clicking on the <b>Check Subtitles</b> button, " +
+			"<br><small>(this will play the file from the beginning showing the just made subtitles)</small>.  </li> "  +
+			"</ul>" +
+			"" +
+   "(.307)) " + 
+   ""; 
+// ==========================================================
+var list_msg00 = [ 
+    ["it" , "<b>Italiano</b><br>",msg_it], 
+    ["en" , "<b>English</b><br>",msg_en]
+    ];
+	
+var list_msg_text = [];
+var list_msg_id   = [];	
+
+/**
+righe_lang = build_language_list()
+			var html_elemLingua = document.getElementById("id_ch_lang")
+			html_elemLingua.innerHTML = righe_lang;   
+var myLanguage_msg = "" ;
+getAllMsgInLang_xx( myLang ) ;
+**/
+
+
+// tutti i messaggi si trovano nel file script ... txtmsg.js 
+		//           dove l'ultima riga simile a ==> 
+		//                         ==> var list_msg00 = [ ["it", "Italiano", stringa di tutti i msg in italiano (righe separatate da "|") ],  
+		//                                                ["en", "English",  mstringa di tutti i msg in inglese]]; 
+		//
+		//           scelta della lingua: automaticamente cerca la lingua del sistema, se è italiano usa "it", se la lingua xx non si trova nella lista list_msg00 viene sostituita da "en"     
+		//-----------------------------------------
+		
+		function build_language_list() {		
+			
+			//  la lingua è espressa in 2 caratteri (es. it,  en )  
+			var num_lang = list_msg00.length;
+			
+			console.log("build_language_list   num_lang=" + num_lang);
+			
+			var lang_xx = "";
+			var list_msg_xx = [];
+			var elem_xx;
+			
+			
+			//------------------------------------
+			// <div id="id_ch_lang"  style="display:none">
+			var ixlang, n1, i;
+			var linguaxx , nomelingua; 
+			var lista_lang = [];
+			//var righe_lang='<div id="id_onlylang"  >';
+			var righe_lang="";
+			
+			//righe_lang += '<div style="width: 100%; display: flex; align-items: center;">' ; 	
+			//righe_lang += '<div style="margin:auto; width: 100%; text-align:center; ">' ; 	
+			
+			var riga1, riga2; 
+			righe_lang += '&nbsp;&nbsp;' ;   
+			for (n1 = 0; n1 < num_lang; n1++) {
+				
+				linguaxx = list_msg00[n1][0];
+				
+				nomelingua = list_msg00[n1][1];		
+				var ik=nomelingua.indexOf("<br>"); 
+				if (ik > 0) {
+					my_discolpa= nomelingua.substring(ik+4);
+					nomelingua = nomelingua.substring(0,ik) ; 
+				}				
+				
+				riga1='<input type="radio"  id="r_lingua_' + linguaxx + '" name="radio_lingua"  '+ 
+					' style="display:none;"  ' + 
+					' onclick=\'getAllMsgInLang_xx("' + linguaxx + '")\' >'; 
+					
+				//riga2='<label for="r_lingua_' + linguaxx + '" class="c_button2"  title="' + my_discolpa + '" >' + nomelingua + '</label>'; 
+				riga2='<label for="r_lingua_' + linguaxx + '" class="button" style="font-size:0.7rem;" title="' + my_discolpa + '" >' + nomelingua + '</label>'; 
+   						
+				righe_lang += '<span  >' + riga1 + riga2 + '</span>' +  '&nbsp;&nbsp;';  
+				
+			}
+			//righe_lang += '<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>'; 
+			//righe_lang += '</div>'
+			return righe_lang;
+			
+			
+		} // fine fun  build_language_list() {
+		
+		//----------------------------------------
+		
+		//-----------------------------------------
+		function getAllMsgInLang_xx(this_lang) {
+			
+			console.log("getAllMsgInLang_xx(  1  " + this_lang) ;
+			
+			myLang = this_lang;  // forza la lingua xx nella variabile global (  il parametro this_lang potrebbe non essere quello originale, ma quello scelta dal pulsante apposito)
+			
+			//  la lingua è espressa in 2 caratteri (es. it,  en )  
+			var num_lang = list_msg00.length;
+			var lang_xx = "";
+			var list_msg_xx = [];
+			var elem_xx;
+			//------------------------------------
+			// trovo indice di questa lingua 			
+			var ixlang =-1,  n1=0; i=0;
+			
+			for (n1 = 0; n1 < num_lang; n1++) {
+				lang_xx = list_msg00[n1][0];
+				if (lang_xx == this_lang) {
+					ixlang = n1;
+				}
+			}
+			if (ixlang < 0) { // se manca si usa il default: en (inglese)
+				this_lang = "en";
+				for (n1 = 0; n1 < num_lang; n1++) {
+					lang_xx = list_msg00[n1][0];
+					if (lang_xx == this_lang) {
+						ixlang = n1;
+					}
+				}
+			}
+			if (ixlang < 0) { //se neanche en (!? ) allora uso il primo  
+				ixlang = 0;
+				this_lang = list_msg00[0][0];
+			}
+			console.log("getAllMsgInLang_xx(2  ixlang="	+ ixlang)	;
+			//-----------------------------------
+			
+			var msgid, msgtxt, ixele, max_ixele=-1;
+
+			n1 = ixlang;
+			lang_xx = list_msg00[n1][0];
+			
+			// come separatore di riga è usata la coppia '((' che però deve rimanere e quindi la faccio precedere dal carattere | che uso nello split
+			
+			// es. (.122)) riga122 (.123)) riga123
+			// es. caso particolare: "((122)) la riga 122 che finisce con (" + "((123))  riga123" 
+			// es. caso particolare: "((122)) riga 122" + "((123)) ) riga123" che inizia con chiusa parentesi"  
+			// ho sostituito come mark di inizio riga (( con (. 
+			string_xx = list_msg00[n1][2]; 
+			
+			
+			// tutti i seguenti replace apparenetement inutili, servono se uso google per tradurre i messaggi da una lingua all'altra 
+			string_xx = string_xx.replaceAll("( (","((").replaceAll("( (","((");  // elimina spazi fra aperte parentesi ( due volte per eventuali triple parentesiù
+			string_xx = string_xx.replaceAll("( .","(.").replaceAll("(. ","(.");
+			string_xx = string_xx.replaceAll(") )","))").replaceAll(") )","))");  // elimina spazi fra aperte parentesi ( due volte per eventuali triple parentesi
+			string_xx = string_xx.replaceAll("(((","( ((");   // se 3 parentesi la prima appartiene alla riga precedente, le altre 2 aprono una nuova riga
+			string_xx = string_xx.replaceAll("((.","( (.");   // se 3 parentesi la prima appartiene alla riga precedente, le altre 2 aprono una nuova riga
+			string_xx = string_xx.replaceAll(")))",")) )");   // se 3 parentesi la prime 2 chiudono il numero riga, la terza è parte della riga
+				
+			string_xx = string_xx.replaceAll("(.","|(.").trim().substring(1);  // davanti ad ogni doppia parentesi metto un barra verticale (serve per lo split)
+			
+			list_msg_xx = string_xx.split("|");
+			
+			num_elem_xx = list_msg_xx.length;
+		
+		
+			list_msg_text = [];
+			list_msg_id   = [];	
+			for(var k=0; k<num_elem_xx; k++) {
+				elem_xx = list_msg_xx[k].replaceAll("( .", "(.").replaceAll(") )", "))").trim();
+				msgid  = elem_xx.substring(2, 5);
+				msgtxt = elem_xx.substring(7).trim();
+				list_msg_text.push( msgtxt );
+				list_msg_id.push(   msgid  );
+			}  
+			
+			
+			set_all_msg(); 
+			
+		}  //   fine func.  getAllMsgInLang_xx
+		//--------------------------------------------
+		function text_by_msgid(numid) {
+			ix = list_msg_id.indexOf( numid );
+			var	txtmsg2 = "";
+			if (ix < 0)  return "";
+			return list_msg_text[ix];
+	   }
+	   //--------------------------------------
+	   function innerHTML_msg( id1, msg_num ) {
+		   try {
+			document.getElementById( id1 ).innerHTML = text_by_msgid(msg_num);
+		   } catch(er1) {
+			   console.log("error in: innerHTML_msg( id1=" + id1 + ", msg_num=" + msg_num+") \n" + er1 );
+		   }
+	   }
+	   //---------------------------------------------
+	   function msg_from_id( id1 ) { 
+			return document.getElementById( id1 ).innerHTML; 
+	   }
+	//---------------------------------------------	

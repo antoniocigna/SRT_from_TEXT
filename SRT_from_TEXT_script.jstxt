@@ -1,0 +1,724 @@
+"use strict";
+//==============================
+/***
+// defined in another file  
+function innerHTML_msg(uno,due) {} //  in SRT_from_TEXT_messages.js
+function text_by_msgid(uno) {}     //  in SRT_from_TEXT_messages.js
+function build_language_list() {}  //  in SRT_from_TEXT_messages.js
+function getAllMsgInLang_xx() {}   //  in SRT_from_TEXT_messages.js
+function msg_from_id(uno) {}       //  in SRT_from_TEXT_messages.js
+var myLang;                        //  in SRT_from_TEXT_messages.js
+// end of define in another file  
+**/ 
+
+var DEBUG=false; 
+
+
+//console.log("msgOther=" + document.getElementById("msgOther").outerHTML )
+//console.log("\n\nx303r="    + document.getElementById("x303").outerHTML )
+
+//============================
+var righe_lang = build_language_list();
+var html_elemLingua = document.getElementById("id_ch_lang");
+html_elemLingua.innerHTML = righe_lang;
+
+
+getAllMsgInLang_xx(myLang);
+//-------------------------------------------------
+
+
+//document.getElementById("id_folder_video").contentEditable = "true"; 
+sw_file_1audio = false;
+sw_file_1video = false;
+
+var vid_error = "";
+
+var sw_file_video_ready = false;
+var sw_file_text_ready = false;
+var video_filename = "";
+
+var filename_base = "";
+var filename_srt = "";
+
+var isPlaying = false;
+
+var path1;
+var path2;
+
+path1 = window.location.pathname;
+var f1 = path1.lastIndexOf("/");
+var f2 = path1.lastIndexOf("\\");
+var f3 = -1;
+var barra = "/";
+if (f1 > f2) {
+        f3 = f1;
+        barra = "/";
+} else {
+        f3 = f2;
+        barra = "\\";
+}
+path2 = path1.substring(f3 + 1);
+
+
+var list_time_stamp = []; // hh:mm:ss,mmm --> hh:mm:ss,mmm  eg. 01:01:01,000 --> 01:01:02,999
+var list_time_from_secs = []; // secs.mmm                       eg. 123.456
+var list_time_to_secs = []; // secs.mmm                       eg. 123.456
+var list_text = []; //                                eg. some text     
+var ele_video_time = document.getElementById("id_video_time");
+var ele_video_sub = document.getElementById("id_video_sub");
+
+var sw_file_1video = false;
+var sw_file_1audio = false;
+
+sw_file_1audio = false;
+sw_file_1video = false;
+
+
+var sw_file_video_ready = false;
+var sw_file_text_ready = false;
+
+var isPlaying = false;
+
+var zeroLine = "_ _ _";
+var txtGr = "";
+
+var vid;
+
+document.getElementById("id_dummy_sub").scrollIntoView();
+
+
+
+
+//====================
+//-------------------------------------------------
+function set_all_msg() {
+
+		// this function is called by 'SRT_from_TEXT_messages.jstxt'
+
+        innerHTML_msg("x001", "001");
+        innerHTML_msg("id_sott1", "003"); //  I sottotitoli sono di tipo
+
+        //innerHTML_msg("x011", "011");
+        innerHTML_msg("id_td_vid0", "013"); //  Video o Audio</th>
+        innerHTML_msg("id_td_txt0", "023"); //  Trascrizione</th>
+        innerHTML_msg("id_vid1inner", "014"); //  Option 1: copy-paste the web address of the video or audio file<br> 		
+        document.getElementById("id_txt_urlVideo").placeholder = text_by_msgid('016'); // paste the URL here
+        document.getElementById("id_text1").placeholder = text_by_msgid('026'); // 'paste the text here 
+        //---------------------------------------------------------
+        //innerHTML_msg("id_txt_urlVideo", "016");//  paste the URL here'
+
+        //innerHTML_msg("id_txt1inner", "024"); // Option 1: copy-paste the text of the transcription<br> 	
+        //innerHTML_msg("id_butt_conf_txt", "025"); // confirm text</button> 	
+        //innerHTML_msg("id_text1"   ,	"026");  //  paste the text here'></textarea>	
+
+        innerHTML_msg("id_msgdrp1", "043"); //  Option 2: drag and drop the Video or Audio file</span>
+        innerHTML_msg("id_msgdrp2", "044"); //  Option 2: drag and drop the text file</span>
+
+        //innerHTML_msg("butFvideo", "011"); //  Option 3: upload the Video or Audio file</span>
+        //innerHTML_msg("butFtesto2", "052"); //  Option 3: upload the text file052Choose a Text File to read</span>
+        innerHTML_msg("id_split", "062");
+
+        innerHTML_msg("x101", "101");
+        innerHTML_msg("x121", "121");
+        innerHTML_msg("x122", "122");
+        innerHTML_msg("x131", "131");
+        innerHTML_msg("x132", "132");
+        innerHTML_msg("x133", "133");
+        innerHTML_msg("x141", "141");
+        innerHTML_msg("x142", "142");
+        innerHTML_msg("x143", "143");
+        innerHTML_msg("x144", "144");
+        innerHTML_msg("x151", "151");
+        innerHTML_msg("x152", "152");
+        innerHTML_msg("x300", "300");
+		innerHTML_msg("x302", "302");
+		innerHTML_msg("x303", "303");
+		innerHTML_msg("x304", "304");
+		innerHTML_msg("x305", "305");
+		innerHTML_msg("id_info", "306");
+
+} // end of set_all_msg()
+
+//------------------------------------------
+function fun_after_drop_uno() {
+
+
+        sw_file_1video = true;
+        sw_file_video_ready = true;
+
+        video_setting2();
+
+        return;      
+
+} // end of fun_after_drop_uno
+
+//-----------------------
+
+function fun_after_drop_due() {
+
+        var this1 = document.getElementById("id_text1");
+        this1.value = split_at_dot(this1.value);
+
+        fun_display("block", ["id_text1"]);
+
+        document.getElementById("id_msg2").innerHTML = "";
+
+        sw_file_text_ready = true;
+} // fun_after_drop_due
+
+
+//------------------------------------------------------------ 
+function fun_display(blockNone, array_id) {
+        // blockNone =   "block" or "none"   
+        // array_id  =  one or more id of element to display or to hide     
+        if (typeof(array_id) == "string") {
+                array_id = [array_id];
+        }
+        for (var i1 = 0; i1 < array_id.length; i1++) {
+                document.getElementById(array_id[i1]).style.display = blockNone;
+        }
+} // end of fun_display 
+
+//--------------------------------------------
+
+function video_setting2() {
+
+        //console.log("vide_setting2()");
+
+        vid_error = "";
+        if (video_filename == "") {
+                filename_srt = "video_or_audio_filename" + " " + datetime_str() + ".srt";
+        } else {
+                path2 = video_filename.split(barra).pop();
+                filename_base = path2.substring(0, path2.lastIndexOf('.'));
+                filename_srt = filename_base + ".srt";
+        }
+
+        vid = document.getElementById("id_div_video_audio");
+
+        //console.log("vid.tagName=" + vid.tagName + " vid.src=" + vid.src);
+
+        isPlaying = false;
+
+        vid.onplaying = function() {
+                isPlaying = true;
+        };
+
+        vid.onpause = function() {
+                isPlaying = false;
+        };
+
+        vid.ontimeupdate = function() {
+                updateVideoTime();
+        };
+		
+		document.getElementById("id_td_vid1").style.display = "block"; 
+
+}
+//-----------------------------------------
+
+
+function split_at_dot(text1) {
+        var newText = text1.trim().replaceAll(". ", ". \n").replaceAll(" \n", "\n").replaceAll("\n\n", "\n");
+        return newText;
+}
+
+//----------------------------------------------------------
+//----------------------------------------------------
+function datetime_str() {
+        var d = new Date();
+        var n = d.toISOString();
+        var local1 = d.toLocaleTimeString();
+        return n.substring(0, 10) + " " + d.toDateString().substring(0, 8) + local1;
+}
+//---------------------------------------------------------
+function get_filename(x) {
+        try {
+                if (x.files.length > 0) {
+                        return x.files[0].name;
+                }
+        } catch (er1) {}
+        return "";
+}
+
+//========================================================== 
+//   second part 
+//===========================================================	
+
+/*
+- each word of the text becomes  a button 
+- if the word (this button) is clicked while the video/audio is playing, then the row is splitted and the the video current time is inserted in the txt. 
+ 
+- if you want the break a line at the end of a word, click on the word just after it is spoken:
+the line is broken the rest become a new line preceeded by the video current time. 
+         
+- if you feel the time of click is not exactly at the end of the word, you can rerun the video starting just a few seconds before the end and at the right time click again on the word 
+then the time on the line will be replaced    	   
+         
+- if you want reset the line, that's  join it with the next, then do a double ckick on the same word that broke it. 
+*/
+
+
+
+//-----------------------------
+function rowreset(this1) {
+
+        this1.nextElementSibling.innerHTML = "";
+
+} // end of rowreset  
+//-----------------------------
+function rowsplit(this1) {
+        if (isPlaying == false) {
+                return;
+        }
+		/**
+		if (this1.innerHTML == "alle") {
+			console.log("this=" + this1.innerHTML + "   next=" +  this1.nextElementSibling.innerHTML + 
+				 "<--   next.next=" +  this1.nextElementSibling.nextElementSibling.innerHTML + 
+				 "<--   next.next.next =" +  this1.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML );  
+		}
+		**/ 
+		
+		
+		this1.nextElementSibling.innerHTML = '<br>:)' +
+                sec2time(vid.currentTime).replace(".", ",") + " = " + vid.currentTime + '(: ';
+				
+		var next2 = this1.nextElementSibling.nextElementSibling;	
+		if (next2) {	
+			next2.innerHTML = next2.innerHTML.replace("<br>",""); 	
+		}	
+
+        this1.previousElementSibling.previousElementSibling.scrollIntoView();
+
+} // end of rwosplit
+
+//------------------------------
+
+function push_gr_srt(xtime_from_hhmmss, xtime_to_hhmmss, xtime_from_secs, xtime_to_secs, xtxtGr) {
+
+        list_time_stamp.push(xtime_from_hhmmss + " --" + '>' + " " + xtime_to_hhmmss);
+        list_time_from_secs.push(xtime_from_secs);
+        list_time_to_secs.push(xtime_to_secs);
+        list_text.push(xtxtGr.trim());
+		
+} // end of  push_gr_srt()           
+//-----------------------------------------------
+function build_srt_list() {
+        console.log("build_srt_list");
+        list_time_stamp = [];
+        list_time_from_secs = [];
+        list_time_to_secs = [];
+        list_text = [];
+        var time_to, time_to_hhmmss, time_to_secs, time_from_hhmmss, time_from_secs;
+
+        time_from_hhmmss = "00:00:00,000";
+        time_from_secs = 0.0;
+		var numsub=0;
+		txtGr = "";
+        var butwords = document.getElementById("id_p_text").children;
+        for (var x = 0; x < butwords.length; x++) {
+                var child1 = butwords[x].innerHTML;
+                var child11 = child1.trim();
+                if (child11.substring(0, 6) == '<br>:)') {
+						numsub+=1; 
+                        var ix2 = child11.indexOf('(:');
+                        time_to = child11.substring(6, ix2).split("=");
+                        time_to_hhmmss = time_to[0].trim();
+                        time_to_secs = time_to[1].trim();
+
+                        push_gr_srt(time_from_hhmmss, time_to_hhmmss, time_from_secs, time_to_secs, txtGr);
+
+                        time_from_hhmmss = time_to_hhmmss;
+                        time_from_secs = time_to_secs;
+                        txtGr = "";
+                        continue;
+                }
+                txtGr += " " + child1;
+        }
+		if (numsub < 2) { return; }
+
+        time_to_hhmmss = sec2time(vid.duration).replace(".", ",");
+        time_to_secs = vid.duration;
+
+        push_gr_srt(time_from_hhmmss, time_to_hhmmss, time_from_secs, time_to_secs, txtGr);
+
+
+} // end of  build_list 	
+//---------------------------------------------------------	
+function play_and_show_srt() {
+		build_srt_list();  
+		        if (list_time_from_secs.length < 0) {
+                return;
+        }
+        document.getElementById("id_dummy_sub").scrollIntoView();
+		
+		vid.currentTime=0; 
+	    playVid(); 
+        //alert("the subtitles have been built, to check them please Press the Play start");
+
+} // end of  build_list 	 
+
+// -----------------------------------	
+function write_srt() {
+		build_srt_list();  
+		        if (list_time_from_secs.length < 0) {
+                return;
+        }
+        var srt_txt = "",
+                numGr = 0;				
+				
+        for (var v = 0; v < list_time_stamp.length; v++) {
+                numGr += 1;
+                srt_txt += numGr + "\n" + list_time_stamp[v] + "\n" + list_text[v] + "\n\n";
+        }
+		if (numGr < 2) { return; }
+        download(filename_srt, srt_txt);
+} // end of list_srt
+
+//---------------------------------------------
+function show_what() {
+	if ( document.getElementById("id_info").style.display == "none") {
+		document.getElementById("id_info").style.display = "block" ;
+		document.getElementById("id_td_vid1").style.display = "none" ;
+	} else {
+		document.getElementById("id_info").style.display = "none" ;
+		document.getElementById("id_td_vid1").style.display = "block" ;
+	}
+}
+//----------------------------------------------------
+
+function sec2time(timeInSeconds) {
+        return new Date(timeInSeconds * 1000).toISOString().substr(11, 12);
+}
+
+//-----------------------------------------------------
+
+function split_into_rows() {
+        
+		//console.log(" split_into_rows()");
+		
+        sw_file_text_ready = false;
+		document.getElementById("id_msg1").innerHTML = "";
+		document.getElementById("id_msg2").innerHTML = "";
+        var text1 = document.getElementById("id_text1").value.trim();
+        if (text1 == "") {
+                console.log(" split_into_rows  2 ");
+                //31 document.getElementById("id_msg1").innerHTML = "";  
+				// text file is missing 
+                document.getElementById("id_msg2").innerHTML = "<b>" + document.getElementById("x303").innerHTML+ "</b>"  + "<hr><br>";
+                document.getElementById("id_msg2").style.color = "red";
+                return;
+        }
+		text1 = zeroLine + '\n' + text1;  
+        
+		//console.log(" split_into_rows  3 ");
+		
+        document.getElementById("id_msg2").innerHTML = "";
+
+        var newText = text1.replaceAll(". ", ". \n").replaceAll(" \n", "\n").replaceAll("\n\n", "\n");
+        document.getElementById("id_text1").innerHTML = newText.trim();
+		
+        //console.log(" split_into_rows  4 ");
+        
+		copy_textarea();
+
+        sw_file_text_ready = true;
+
+        //console.log(" split_into_rows()  2  sw_file_video_ready=" + sw_file_video_ready);
+		
+        if (sw_file_video_ready) {
+                video_setting2();
+                //console.log(" split_into_rows()  3  ");
+                        //document.getElementById("id_cont").style.display = "block";
+                go_on();
+        } else {
+                document.getElementById("id_msg1").innerHTML = "<b>" + text_by_msgid('202') + "</b>" + "<hr><br>"; //202video/audio file name is missing;
+                document.getElementById("id_msg1").style.color = "red";
+        }
+		
+		
+		
+		if (DEBUG) { 
+			// var out1txt = document.getElementById("id_p_text").outerHTML;
+			//download("bottoni.html",out1txt  ) 
+			var htmltext = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+			download("debug" + ".html", 
+				htmltext.replace("none", "block") 
+			) ;
+		}
+       
+        //console.log(" split_into_rows  5 ");
+		
+} // end of split_into_rows
+
+//-----------------------------------------------
+function funword(word1) {
+        //var newword = '<button class="tdbutt" onclick="mio(this)">' + word1 + '<\/button>'; 
+        var newword = word1 + '<input class="input1" type="checkbox"  onclick="playOrNot2(this)">' ;
+
+
+        return newword;
+}
+
+//-----------------------------------------------
+
+function copy_textarea() {
+        var new_text = document.getElementById("id_text1").value;
+
+
+        var rows = new_text.split("\n");
+        var a_row = "";
+        var allrows = "";
+        var newriga = "";
+        for (var i = 0; i < rows.length; i++) {
+                a_row = rows[i].trim();
+                if (a_row == "") {
+                        continue;
+                }
+                newriga = split_in_words(a_row);
+                allrows += newriga + "<span><br></span>";
+        }
+        document.getElementById("id_p_text").innerHTML = allrows;
+} // end of copy_textarea
+
+//---------------------------------------------------------
+
+function split_in_words(row1) {
+        var comma_and_etc = ",.;:[]{}()\/!?+|\'\"  ";
+        var txt1 = "",
+                chr1;
+        var word1 = "";
+        for (var x = 0; x < row1.length; x++) {
+                chr1 = row1.charAt(x);
+                if (comma_and_etc.indexOf(chr1) < 0) {
+                        word1 += chr1;
+                } else {
+                        if (word1 != "") {
+								word1 += chr1; 
+                                txt1 += funword(word1);
+                                word1 = "";
+								txt1 += "";
+                        } else {
+							txt1 += chr1; 
+						}
+                       
+                }
+        }
+        if (word1 != "") {
+				word1 += chr1; 
+                txt1 += funword(word1);
+                word1 = "";
+        }
+        return txt1 + '\n';
+} // end of split_in_words(
+
+//-----------------------------------------------
+
+function funword(word1) {
+        var newword = '\n\t<button class="but_word" onclick="rowsplit(this)"  ondblclick="rowreset(this)">' + word1 + '</button><span></span>';
+        return newword;
+}
+
+//-----------------------------------		
+// Play video function
+function playVid() {
+        if (vid.paused && !isPlaying) {
+                vid.play();
+                console.log("play OK");
+        } else {
+                console.log("play No OK: vid.paused=" + vid.paused + "   isPlaying=" + isPlaying);
+                //alert("play No OK: vid.paused=" + vid.paused + "   isPlaying=" + isPlaying);
+        }
+}
+//---------------------------------
+// Pause video function
+function pauseVid() {
+        if (!vid.paused && isPlaying) {
+                vid.pause();
+                //console.log("PAUSE  OK");
+        } else {
+                //console.log("PAUSE  NO OK: vid.paused=" + vid.paused + "   isPlaying=" + isPlaying);
+        }
+}
+
+//----------------------------
+
+function updateVideoTime() {
+        set_time_to_show(vid.currentTime);
+}
+
+//--------------------------------------------------------
+function get_ix_of_time_secs(timeInSeconds) {
+        var ix = -1;
+
+        for (var z = 0; z < list_time_from_secs.length; z++) {
+                if (timeInSeconds < list_time_from_secs[z]) {
+                        break;
+                }
+                if (timeInSeconds > list_time_to_secs[z]) {
+                        continue;
+                }
+                if ((timeInSeconds >= list_time_from_secs[z]) && (timeInSeconds <= list_time_to_secs[z])) {
+                        ix = z;
+                }
+        }
+
+        /*
+		if (ix < 0) {
+          console.log("get_ix_of_time_secs(" + timeInSeconds + ")  list_time_from_secs.length=" + list_time_from_secs.length);
+        }
+		*/
+        return ix;
+}
+//-----------------------------------------------------------
+function set_time_to_show(time_secs) {
+
+        var msg = "";
+
+
+        var hhmmss = new Date(time_secs * 1000).toISOString().substr(11, 8);
+
+
+        var ix = get_ix_of_time_secs(time_secs);
+		
+        if (ix < 0) {
+              console.log("set_time_to_show(time_secs=" + time_secs + " )   get_ix ... ix=" + ix);
+        }
+		
+        if (ix >= 0) {
+                hhmmss += "  ( " + (ix + 1) + " )";
+                msg = list_text[ix];
+        }
+	
+        ele_video_time.innerHTML = hhmmss;
+        ele_video_sub.innerHTML = msg;
+        //console.log("sub " + ix + " = " + ele_video_sub.innerHTML )
+
+} // end of set_time_to_show
+
+//----------------------------------------
+//-------------------------------------------------------
+function go_on() {
+        console.log("gon_on() 1 ");
+        if (sw_file_video_ready && sw_file_text_ready) {
+                document.getElementById("id_part1").style.display = "none";
+                document.getElementById("id_split").style.display = "none";
+				document.getElementById("id_msg1").innerHTML = "<br>"; 
+                document.getElementById("id_div20").style.display = "block";
+                return;
+        }
+
+        if (sw_file_video_ready == false) {
+                document.getElementById("id_msg1").innerHTML = "<b>" + text_by_msgid('202') + "</b>" + "<hr><br>"; //202video/audio file name is missing;	
+                document.getElementById("id_msg1").style.color = "red";
+                return;
+        }
+        
+}
+//------------------------------------------	
+function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+                encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = "none";
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+}
+//---------------------------------------
+
+function handleFiles(ele_inp1, id_to_elem1, src_value_inner, fun_after_drop1, id_error1) {
+        if (ele_inp1.files.length < 1) {
+                return;
+        }
+		
+		document.getElementById(id_error1).innerHTML = "";		
+		
+        var to_elem1 = document.getElementById(id_to_elem1);
+     
+        var file1 = ele_inp1.files[0];
+		
+        var type_file = file1.type;
+        var filename00 = file1.name;
+        //console.log("  file drag/drop type=" + type_file + " file name=" + filename00); // type depends only on file extension  
+
+        if (is_toElem_tagName_compatible_type_file(to_elem1, type_file) == false) {
+                var msgfile1 = "<span style='color:blue;'>" + filename00 + "</span>"; 
+                       
+                document.getElementById(id_error1).innerHTML = type_file + "<br>" + msgfile1 + "<br>" + msg_from_id("x302") + "<hr><br>"; // incompatible
+				document.getElementById(id_error1).style.color = "red";
+                return;
+        }
+
+        var reader = new FileReader();
+
+        var type1 = src_value_inner.toLowerCase();
+
+        if (type1 == "src") {
+                reader.readAsDataURL(file1);
+        } else {
+                reader.readAsText(file1);
+        }
+
+        reader.onload = function(e) {
+                copy_to1(to_elem1, e.target.result, src_value_inner);
+                fun_after_drop1();
+        };
+        reader.onerror = function() {
+                console.log("error in 'handleFiles(): " + reader.error);
+                copy_to1(to_elem1, reader.error, src_value_inner);
+        };
+} // end of handleFiles()	
+
+//-------------------------
+
+function is_toElem_tagName_compatible_type_file(to_elem0, type_file0) {
+
+        var to_elemTagName = to_elem0.tagName.toLowerCase();
+        var type_file = (type_file0.split("/"))[0].toLowerCase();
+
+        if (to_elemTagName == "img") {
+                return ((type_file == "image") ? true : false);
+        }
+        if (to_elemTagName == "video") {
+                if ("  video audio ".indexOf(type_file) > 0) {
+                        return true;
+                }
+                return false;
+        }
+        if (to_elemTagName == "audio") {
+                return ((type_file == "audio") ? true : false);
+        }
+
+        if (" textarea input ".indexOf(to_elemTagName) > 0) {
+                return ((type_file == "text") ? true : false) ;
+        }
+        return true;
+} // end of is_toElem_tagName_compatible_type_file
+//-------------------------	
+//-------------------------------------------
+function copy_to1(ele1, result1, src_value_inner) {
+        // drop result 
+        switch (src_value_inner) {
+                case "src":
+                        ele1.src = result1;
+                        break;
+                case "value":
+                        ele1.value = result1;
+                        break;
+                default:
+                        ele1.innerHTML = result1;
+                        break;
+        }
+        //console.log("/nXXXXXXXXXX  copy to \n" + ele1.outerHTML.substring(0, 200) + "\n...\n");
+} // end of copy_to1	
+//---------------------------------
+
+//---------------------------------
+
+//--------------------------
+// end of script file
