@@ -9,18 +9,16 @@ Start the reproduction and follow, scrolling with the mouse the speech on the te
 This action inserts the current time into the text.  
 
 For example if you click on the word _Corona_ in the following line
-     _Die Berliner Familie Burgdorff nach einem Jahr Corona: Alle sind zu Hause, alle beschäftigt am Computer - okay, fast alle. Leandro kämpft mit Mathematik._
-
+     Die Berliner Familie Burgdorff nach einem Jahr Corona: Alle sind zu Hause, alle beschäftigt am Computer - okay, fast alle. Leandro kämpft mit Mathematik.
+     
 the line is broken as following:
-    _Die Berliner Familie Burgdorff nach einem Jahr Corona:  
+    Die Berliner Familie Burgdorff nach einem Jahr Corona:  
     :) 00: 00: 09,531 = 9.531916 (: Alle sind zu Hause, alle beschäftigt am Computer - okay, fast alle._
   
 and then if you click on the word _Computer_ , the original line becomes:
     Die Berliner Familie Burgdorff nach einem Jahr Corona:  
     :) 00: 00: 09,531 = 9.531916 (: Alle sind zu Hause, alle beschäftigt am Computer  
-    :) 00: 00: 13,837 = 13.837164 (: - okay, fast alle.
-
-  
+    :) 00: 00: 13,837 = 13.837164 (: - okay, fast alle.  
 
 Note that if there are no corrections to be made it is not necessary to stop the playback which can continue without stopping until the end.  
   
