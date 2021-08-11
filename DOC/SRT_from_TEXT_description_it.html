@@ -24,10 +24,14 @@ div, tabella, tr, td {
 
 <p> Il tempo necessario per creare il file è praticamente uguale alla durata del file video o audio in riproduzione. </p>
 <p>
+Avvia la riproduzione e segui col mouse le parole sul testo mentre vengono pronunciate, quando percepisci una pausa, ad esempio alla fine della frase, clicca sull'ultima parola pronunciata.  
+Questa azione inserisce il <i>timestamp</i> corrente nel testo (per <i>timestamp</i> quì si intente il numero di secondi trascorsi dall'inizio del video o audio).  
+<br>
+
 Avvia la riproduzione e segui, scorrendo con il mouse il discorso sul testo,
 quando percepisci una pausa, ad esempio alla fine della frase,
 clicca sull'ultima parola pronunciata.
-<br>Questa azione inserisce l'ora corrente nel testo.
+<br>Questa azione inserisce il <i>timestamp</i> corrente nel testo.
 <br>
 <div>
 Ad esempio se clicchi sulla parola <i> Corona </i> nella riga seguente
@@ -51,7 +55,7 @@ Die Berliner Familie Burgdorff nach einem Jahr Corona:
 <table><tr><td style="width:4rem;">&nbsp;</td><td>
 Die Berliner Familie Burgdorff nach einem Jahr Corona:
 <br>:)00:00:09,531 = 9.531916(: Alle sind zu Hause, alle beschäftigt am Computer
-<br>:)00:00:13,837 = 13.837164(: - va bene, veloce alle.
+<br>:)00:00:13,837 = 13.837164(: - ok, fast alle.
 </td></tr></table>
 </div>
 <br>
@@ -62,6 +66,7 @@ Al termine della riproduzione, premendo il pulsante <b> Scarica file </b>, viene
 <br><br>
 Questo è l'output dell'esempio precedente:
 <table><tr><td style="width:4rem;">&nbsp;</td><td>
+<i>
 1
 <br>00:00:00.000 -> 00:00:09,531
 <br>Die Berliner Familie Burgdorff nach einem Jahr Corona:
@@ -72,8 +77,9 @@ Questo è l'output dell'esempio precedente:
 <br>&nbsp; &nbsp; &nbsp; &nbsp;
 <br>3
 <br>00:00:13,837 -> 00:00:16,379
-<br>- ok, veloce alle.
+<br>- ok, fast alle.
 <br>&nbsp;
+</i>
 </td></tr></table>
 </div>
 <div>
@@ -92,10 +98,10 @@ in questo modo il nuovo timestamp andrà a sostituire quello precedente.
 Se hai cliccato sulla parola sbagliata,
 <table><tr><td style="width:4rem;">&nbsp;</td><td>
 fai doppio click su questa parola,
-<br>l'ora inserita verrà eliminata e la riga successiva verrà spostata nella posizione precedente.
+<br>Il <i>timestamp</i> inserito verrà eliminato e la riga successiva verrà spostata nella posizione precedente.
 <br>Ad esempio:
 <br>:)00:00:09,531 = 9.531916(: Alle sind zu Hause, alle beschäftigt am Computer
-<br>:)00:00:13,837 = 13.837164(: - va bene, veloce alle.
+<br>:)00:00:13,837 = 13.837164(: - ok, fast alle.
 </td></tr></table>
 <br>Se fai doppio click su <i> Computer </i> ottieni:
 <table><tr><td style="width:4rem;">&nbsp;</td><td>
