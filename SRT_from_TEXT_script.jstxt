@@ -333,6 +333,7 @@ function build_srt_list() {
                         txtGr = "";
                         continue;
                 }
+				
                 txtGr += " " + child1;
         }
 		if (numsub < 2) { return; }
@@ -503,6 +504,7 @@ function split_in_words(row1) {
 						}
                        
                 }
+				chr1=""; 
         }
         if (word1 != "") {
 				word1 += chr1; 
